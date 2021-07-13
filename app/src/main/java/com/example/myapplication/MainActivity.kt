@@ -7,6 +7,7 @@ import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
     private val fruits = listOf("banana", "avocado", "apple", "kiwifruit")
+    private val mapValues = mapOf("key1" to 13,"key2" to 15,"key3" to 19)
     private lateinit var btnFilter: Button
     private lateinit var btnMap: Button
     private lateinit var btnShort: Button
@@ -31,7 +32,8 @@ class MainActivity : AppCompatActivity() {
             tvDetails.text = mapItems()
         }
         btnShort.setOnClickListener() {
-            tvDetails.text = shortItems()
+           // tvDetails.text = shortItems()
+            tvDetails.text = pairingItems()
         }
 
     }
@@ -42,10 +44,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun shortItems(): String {
-        return fruits.sortedBy { it.uppercase() }.toString()
+        return fruits.sortedBy { it.length }.toString()
     }
 
     private fun mapItems(): String {
         return fruits.map { it.uppercase() }.toString()
+    }
+
+
+
+    private fun pairingItems() : String{
+        return mapValues.filter {(key,value) -> key.endsWith("2") && value >4}.toString()
     }
 }
