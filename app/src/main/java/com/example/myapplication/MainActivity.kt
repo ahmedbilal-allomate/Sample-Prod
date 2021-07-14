@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
     private val fruits = listOf("banana", "avocado", "apple", "kiwifruit")
@@ -22,6 +23,8 @@ class MainActivity : AppCompatActivity() {
         tvDetails = findViewById(R.id.tvDetails)
 
         listeners()
+
+
     }
 
     private fun listeners() {
@@ -33,7 +36,9 @@ class MainActivity : AppCompatActivity() {
         }
         btnShort.setOnClickListener() {
            // tvDetails.text = shortItems()
-            tvDetails.text = pairingItems()
+           // tvDetails.text = pairingItems()
+            tvDetails.text = plusOperator().toString()
+            Toast.makeText(this,gettingLength(null).toString(),Toast.LENGTH_LONG).show()
         }
 
     }
@@ -56,4 +61,26 @@ class MainActivity : AppCompatActivity() {
     private fun pairingItems() : String{
         return mapValues.filter {(key,value) -> key.endsWith("2") && value >4}.toString()
     }
+
+    private fun gettingLength(obj : Any?) :Any?{
+        if ( obj is String)
+        {
+            return obj.length
+        }
+        if (obj is Int){
+            return obj.dec()
+        }
+
+        return null
+    }
+
+
+    private fun plusOperator(): Any {
+        val numberList1 = listOf("One", 2, "3")
+        val numberList2 = listOf(2, "3", 6)
+        return numberList1 + numberList2
+    }
+
+
+
 }
