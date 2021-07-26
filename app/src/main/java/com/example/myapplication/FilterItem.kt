@@ -1,10 +1,12 @@
 package com.example.myapplication
 
 import android.widget.Filter
+import com.example.myapplication.model.DummyDataItem
+import com.example.myapplication.model.User
 
-class FilterItem(filterList: ArrayList<User>, private val adapter: CustomAdapter) : Filter() {
+class FilterItem(filterList: ArrayList<DummyDataItem>, private val adapter: CustomAdapter) : Filter() {
 
-    private val filterList: ArrayList<User> = filterList
+    private val filterList: ArrayList<DummyDataItem> = filterList
 
     override fun performFiltering(constraint: CharSequence?): FilterResults {
         var constraint1: CharSequence? = constraint
@@ -14,7 +16,7 @@ class FilterItem(filterList: ArrayList<User>, private val adapter: CustomAdapter
             constraint1 = constraint1.toString().uppercase()
 
             var filteredModel =
-                filterList.filter { it.name.uppercase().contains(constraint1) } as ArrayList<User>
+                filterList.filter { it.title.uppercase().contains(constraint1) } as ArrayList<DummyDataItem>
             result.values = filteredModel
         } else {
             result.values = filterList
@@ -25,7 +27,7 @@ class FilterItem(filterList: ArrayList<User>, private val adapter: CustomAdapter
 
     override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
         if (results != null) {
-            adapter.userList = results.values as ArrayList<User>
+            adapter.userList = results.values as ArrayList<DummyDataItem>
             adapter.notifyDataSetChanged()
         }
     }

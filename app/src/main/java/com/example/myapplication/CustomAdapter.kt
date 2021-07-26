@@ -6,29 +6,28 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.databinding.ItemListBinding
+import com.example.myapplication.model.DummyDataItem
+import com.example.myapplication.model.User
 
-class CustomAdapter (var userList : ArrayList<User>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() ,Filterable{
+class CustomAdapter (var userList : ArrayList<DummyDataItem>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() ,Filterable{
 
     private var filterItem : FilterItem? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomAdapter.ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
-        return ViewHolder(v)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(DataBindingUtil.inflate(
+        LayoutInflater.from(parent.context),R.layout.item_list,parent,false))
 
     override fun onBindViewHolder(holder: CustomAdapter.ViewHolder, position: Int) {
-       holder.tvTextView.text = userList[position].name
+       holder.binding.listItem = userList[position]
     }
 
     override fun getItemCount(): Int {
         return userList.size
     }
 
-    class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
-        val tvTextView = itemView.findViewById<TextView>(R.id.tvItem)
-
-    }
+    class ViewHolder(val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun getFilter(): Filter {
         if (filterItem == null){

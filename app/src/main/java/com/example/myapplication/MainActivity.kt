@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import com.example.myapplication.model.User
 
 class MainActivity : AppCompatActivity() {
     private val fruits = listOf("banana", "avocado", "apple", "kiwifruit")
@@ -24,7 +25,6 @@ class MainActivity : AppCompatActivity() {
 
         listeners()
 
-
     }
 
     private fun listeners() {
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         btnShort.setOnClickListener() {
            // tvDetails.text = shortItems()
            // tvDetails.text = pairingItems()
-            tvDetails.text = plusOperator().toString()
+          
             Toast.makeText(this,gettingLength(null).toString(),Toast.LENGTH_LONG).show()
         }
 
@@ -81,6 +81,10 @@ class MainActivity : AppCompatActivity() {
         return numberList1 + numberList2
     }
 
+
+    fun f(mainModelList: List<User>, selectedList: List<User>) : List<User> {
+        return mainModelList.filter { selectedList.map { it.name }.contains ( it.address ) }
+    }
 
 
 }
